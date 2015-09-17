@@ -1,0 +1,101 @@
+package com.umedia.Dragonfly.controller;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.umedia.Dragonfly.dao.DeviceDAO;
+
+//this is protected by oauth
+@Controller
+//@RequestMapping("/service")
+public class RestController {
+
+	@Autowired
+	DeviceDAO deviceDao;
+	
+	//@RequestMapping(value = "/device", method = RequestMethod.GET)
+	//@RequestMapping(value = "/device", params="format=json")
+	@RequestMapping(value = "/device/register")
+	public ResponseEntity<String> registerDevice(HttpServletRequest request )
+	{
+		@SuppressWarnings("unused")
+		String deviceid = request.getParameter("deviceid");
+		String token = request.getParameter("token");
+		//to know the device belongs to.
+		String username = request.getParameter("username");
+		//post or get?
+		//store device id and its current token
+		
+		deviceDao.addDevice(deviceid, token, username);
+		
+		return new ResponseEntity<String>(HttpStatus.OK) ;
+	}
+	
+	@RequestMapping(value = "/device", params = "format=json")
+	public ResponseEntity<String> getDeviceJson(@RequestParam(value = "callback", required = false) String callback,
+			Principal principal)
+	{
+		ArrayList<String> devicelist = new ArrayList<String>();
+		devicelist.add("first device");
+		
+		StringBuilder out = new StringBuilder();
+		if (callback != null) {
+			out.append(callback).append("( ");
+		}
+		out.append("{ \"device\" : [ ");
+		Iterator<String> photosIt = devicelist.iterator();
+		while (photosIt.hasNext()) {	
+			String device = photosIt.next();
+			out.append(String.format("{ \"id\" : \"%s\" }", device));
+			if (photosIt.hasNext()) {
+				out.append(" , ");
+			}
+		}
+		out.append("] }");
+		if (callback != null) {
+			out.append(" )");
+		}
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", "application/javascript");
+		return new ResponseEntity<String>(out.toString(), headers, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/device", params = "format=xml")
+	public ResponseEntity<String> getDeviceXml(Principal principal)
+	{
+		ArrayList<String> devicelist = new ArrayList<String>();
+		devicelist.add("first device");
+		
+		StringBuilder out = new StringBuilder();
+		
+		out.append("<devices>");
+		Iterator<String> photosIt = devicelist.iterator();
+		while (photosIt.hasNext()) {	
+			String device = photosIt.next();
+			//out.append(String.format("{ \"id\" : \"%s\" }", photosIt));
+			out.append(String.format("<id=\"%s\" />", device));
+			//if (photosIt.hasNext()) {
+			//	out.append(" , ");
+			//}
+		}
+		out.append("</devices>");
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", "application/xml");
+		return new ResponseEntity<String>(out.toString(), headers, HttpStatus.OK);
+	}
+}

@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 193702c85de00187cbfe1c003655ec3d4a6b1eda unknown <maxi.wu@RH001-NB104023.u-media.com.tw> 1440485299 +0800	commit (initial): before adding oauth
+193702c85de00187cbfe1c003655ec3d4a6b1eda 8d89ec2026992264d4829505c69ec1a236e430c1 unknown <maxi.wu@RH001-NB104023.u-media.com.tw> 1441177017 +0800	commit: first
+8d89ec2026992264d4829505c69ec1a236e430c1 11f66de99ae51e4f45525ae75d010829e263c2a5 unknown <maxi.wu@RH001-NB104023.u-media.com.tw> 1441263288 +0800	commit: fix package and security works as intented
+11f66de99ae51e4f45525ae75d010829e263c2a5 8411150524468f73a07f0b67c01484c7a1fc283a unknown <maxi.wu@RH001-NB104023.u-media.com.tw> 1441272281 +0800	commit: add logout

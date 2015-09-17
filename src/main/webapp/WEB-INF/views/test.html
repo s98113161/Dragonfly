@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../resources/css/authenticate.css"
+	th:href="@{/resources/css/authenticate.css}" />
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="../resources/css/bootstrap.min.css"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="table">
+			<h3 class="header text-center">OAuth Approval</h3>
+			<div class="container-fluid">
+			<!-- ask for authorize text -->
+					<h4 th:text="|Do you authorize '${authorizationRequest.clientId}' to access your protected resources?|">Do you authorize 'App' to access your protected resources?</h4>
+				<div class="row">
+					<div class="col-md-4">
+					<div>
+						<img class="center-block"
+							src="http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/blue-user-icon.png"></img>
+					</div>
+					<div>
+					<p><strong th:text="${authorizationRequest.clientId}">Device Name</strong></p>
+					</div>
+					</div>
+					<div class="col-md-8 text-left ">
+					
+					<form id="confirmationForm" name="confirmationForm" action="/" method="post" th:action="|${path}/oauth/authorize|" >
+					<!-- CSRF protect -->
+							<fieldset>
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
+								<input name="user_oauth_approval" value="true" type="hidden" />
+							</fieldset>
+					<ul>
+						<div th:each="scope : ${scopes}">
+						<li>
+							<p th:text="${scope.key}" >scope.write</p>
+						</li>
+						<!-- 將預設approve為true，並隱藏input -->
+							<div class="form-group"  style="display:none">
+								<input type="radio" th:name="${scope.key}" value="true" alt="Approve" checked="checked"/>
+								<input type="radio" th:name="${scope.key}" value="false" alt="Deny"/>
+							</div>
+						</div>
+						
+					</ul>
+					</form>
+					</div>
+					
+				</div>
+				
+			</div>
+						
+			<div id="buttons" class="row">
+				<div class="text-right col-md-6 col-sm-6 col-xs-6">
+				<input type="submit" form="confirmationForm" class="btn btn-primary" value="同意" ></input>
+				</div>
+				<div class="text-left col-md-6 col-sm-6 col-xs-6">
+					<button type="button" class="btn btn-warning ">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

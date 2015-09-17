@@ -1,0 +1,32 @@
+.header {
+	padding: 10px;
+	margin: 0 auto;
+	background-color: #def;
+}
+
+.table {
+	background: white;
+	width: 550px !important;
+	/*the important can keep css*/
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: gray;
+	border: 1px solid silver;
+
+	/* padding: 0.5em 0.75em; */
+}
+
+.btn {
+	width: 100px !important;
+}
+
+.row div img {
+	width: 128px;
+}
+#buttons{
+padding-bottom: 15px;
+}

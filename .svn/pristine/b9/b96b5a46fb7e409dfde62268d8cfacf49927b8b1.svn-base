@@ -1,0 +1,12 @@
+package com.umedia.Dragonfly.dao;
+
+public interface DeviceDAO {
+	boolean addDevice(String deviceid, String token, String user);
+
+	boolean updateDevice(String deviceid, String token, String user);
+
+	boolean deleteDevice(String deviceid);
+
+	String findDevice(String deviceid);
+
+}

@@ -1,0 +1,11 @@
+com\umedia\Dragonfly\configuration\WebappInitializer.class
+com\umedia\Dragonfly\configuration\SecurityConfig.class
+com\umedia\Dragonfly\oauth\DragonflyUserApprovalHandler.class
+com\umedia\Dragonfly\configuration\OAuthServerConfig$ResourceServerConfiguration.class
+com\umedia\Dragonfly\controller\HomeController.class
+com\umedia\Dragonfly\configuration\OAuthServerConfig$Stuff.class
+com\umedia\Dragonfly\configuration\OAuthServerConfig$AuthorizationServerConfiguration.class
+com\umedia\Dragonfly\configuration\OAuthServerConfig.class
+com\umedia\Dragonfly\App.class
+com\umedia\Dragonfly\controller\RestController.class
+com\umedia\Dragonfly\configuration\WebappConfig.class

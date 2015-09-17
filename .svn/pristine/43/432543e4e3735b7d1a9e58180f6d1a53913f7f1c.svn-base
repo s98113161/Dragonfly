@@ -1,0 +1,51 @@
+package com.umedia.Dragonfly.dao;
+
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class DeviceDAOImpl implements DeviceDAO {
+	JdbcTemplate jdbcTemplate;
+
+	public DeviceDAOImpl(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	public JdbcTemplate getTempleate() {
+		return jdbcTemplate;
+	}
+
+	@Override
+	public boolean addDevice(String deviceid, String token, String user) {
+		String sql = " INSERT INTO devices(deviceId, token, user) VALUES (?, ?, ?)";
+		jdbcTemplate.update(sql, deviceid, token, user);
+		return true;
+
+	}
+
+	@Override
+	public boolean updateDevice(String deviceid, String token, String user) {
+		String sql = " UPDATE devices SET token=?, user=? WHERE deviceId=?";
+		jdbcTemplate.update(sql, token, user, deviceid);
+		return true;
+	}
+
+	@Override
+	public boolean deleteDevice(String deviceid) {
+		String sql = "DELETE from devices WHERE deviceId=?";
+		jdbcTemplate.update(sql, deviceid);
+		return true;
+	}
+
+	@Override
+	public String findDevice(String deviceid) {
+		String sql = "SELECT token FROM devices WHERE deviceId = ?";
+
+		String name = jdbcTemplate.queryForObject(sql, String.class, deviceid);
+
+		return name;
+	}
+
+}
