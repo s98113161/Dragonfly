@@ -2,17 +2,12 @@ package com.umedia.Dragonfly.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+
 public class HomeController {
 
 	@RequestMapping("/home")
@@ -25,6 +20,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String welcome()
 	{
+		System.out.println("123");
 		return "index";
 	}
 	

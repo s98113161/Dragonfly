@@ -24,25 +24,22 @@ import org.springframework.web.servlet.ModelAndView;
 public class RestController {
 
 	
-	  @RequestMapping("/oauth/confirm_access") 
-	 public ModelAndView getAccessConfirmation( Map<String, Object> model, HttpServletRequest request) throws Exception {
-		  if (request.getAttribute("_csrf") != null) {
-				model.put("_csrf", request.getAttribute("_csrf"));
-				
-			} 
-		  @SuppressWarnings("unchecked")
+	@RequestMapping("/oauth/confirm_access")
+	public ModelAndView getAccessConfirmation(Map<String, Object> model, HttpServletRequest request) throws Exception {
+		if (request.getAttribute("_csrf") != null) {
+			model.put("_csrf", request.getAttribute("_csrf"));
+		}
+		@SuppressWarnings("unchecked")
 		Map<String, String> scopes = (Map<String, String>) (model.containsKey("scopes") ? model.get("scopes")
-					: request.getAttribute("scopes"));
-		  model.put("scopes", scopes);
-		  model.put("path", (Object) request.getContextPath());
-	 return new ModelAndView("test",model);
-	 
-	  
-	  }
-	  
+				: request.getAttribute("scopes"));
+		model.put("scopes", scopes);
+		model.put("path", (Object) request.getContextPath());
+		return new ModelAndView("test", model);
+
+	}
+	  /*
 //這個mapping沒有對應，不會呼叫，參考用
 	@RequestMapping("/oauth/confirm_access2")
-
 	public ModelAndView getAccessConfirmation2(Map<String, Object> model, HttpServletRequest request) throws Exception {
 		String template = createTemplate(model, request);
 		if (request.getAttribute("_csrf") != null) {
@@ -54,20 +51,15 @@ public class RestController {
 	private String createTemplate(Map<String, Object> model, HttpServletRequest request) {
 		String template = TEMPLATE;
 		if (model.containsKey("scopes") || request.getAttribute("scopes") != null) {
-			System.out.println("01");
 			template = template.replace("%scopes%", createScopes(model, request)).replace("%denial%", "");
 		} else {
-			System.out.println("02");
 			template = template.replace("%scopes%", "").replace("%denial%", DENIAL);
 		}
 		if (model.containsKey("_csrf") || request.getAttribute("_csrf") != null) {
-			System.out.println("03");
 			template = template.replace("%csrf%", CSRF);
 		} else {
-			System.out.println("04");
 			template = template.replace("%csrf%", "");
 		}
-		System.out.println("001");
 		return template;
 	}
 
@@ -100,7 +92,7 @@ public class RestController {
 	private static String SCOPE = "<li><div class='form-group'>%scope%: <input type='radio' name='%key%'"
 			+ " value='true'%approved%>Approve</input> <input type='radio' name='%key%' value='false'%denied%>Deny</input></div></li>";
 
-	
+	*/
 	
 	@RequestMapping(value = "/device", params = "format=json")
 	public ResponseEntity<String> getDeviceJson(@RequestParam(value = "callback", required = false) String callback,
@@ -109,7 +101,7 @@ public class RestController {
 		devicelist.add("first device");
 
 		StringBuilder out = new StringBuilder();
-		System.out.println("out:"+out);
+		System.out.println("out:" + out);
 		if (callback != null) {
 			out.append(callback).append("( ");
 		}
@@ -131,22 +123,5 @@ public class RestController {
 		headers.set("Content-Type", "application/javascript");
 		return new ResponseEntity<String>(out.toString(), headers, HttpStatus.OK);
 	}
-	
+
 }
-/*
- * @RequestMapping(value = "/device", params = "format=xml") public
- * ResponseEntity<String> getDeviceXml(Principal principal) { ArrayList<String>
- * devicelist = new ArrayList<String>(); devicelist.add("first device");
- * 
- * StringBuilder out = new StringBuilder();
- * 
- * out.append("<devices>"); Iterator<String> photosIt = devicelist.iterator();
- * while (photosIt.hasNext()) { String device = photosIt.next();
- * //out.append(String.format("{ \"id\" : \"%s\" }", photosIt));
- * out.append(String.format("<id=\"%s\" />", device)); //if (photosIt.hasNext())
- * { // out.append(" , "); //} } out.append("</devices>");
- * 
- * HttpHeaders headers = new HttpHeaders(); headers.set("Content-Type",
- * "application/xml"); return new ResponseEntity<String>(out.toString(),
- * headers, HttpStatus.OK); }
- */

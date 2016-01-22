@@ -55,5 +55,4 @@ class SpelView implements View {
 		response.setContentType(getContentType());
 		response.getWriter().append(result);
 	}
-
 }
