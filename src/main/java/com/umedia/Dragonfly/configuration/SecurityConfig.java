@@ -45,15 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		/*auth.jdbcAuthentication().dataSource(dataSource)
 				.passwordEncoder(passwordEncoder());*/
 		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("USER");
+		auth.inMemoryAuthentication().withUser("test").password("test").roles("test");
 	}
 
-/*	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-			.inMemoryAuthentication()
-				.withUser("admin").password("admin").roles("USER");
-	}
-	*/
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();

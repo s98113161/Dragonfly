@@ -17,9 +17,6 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-import com.umedia.Dragonfly.dao.DeviceDAO;
-import com.umedia.Dragonfly.dao.DeviceDAOImpl;
-
 @Configuration
 @EnableWebMvc
 @ComponentScan({"com.umedia.Dragonfly.controller", "com.umedia.Dragonfly.configuration","com.umedia.Dragonfly.dao"})
@@ -87,10 +84,6 @@ public class WebappConfig extends WebMvcConfigurerAdapter{
 		dataSource.setUsername("root");
 		dataSource.setPassword("123456");
 		return dataSource;
-	}
-    @Bean
-	public DeviceDAO getDeviceDAO() {
-		return new DeviceDAOImpl(getDataSource());
 	}
 /*    
     @Bean

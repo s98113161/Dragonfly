@@ -18,9 +18,10 @@
 	<div class="container">
 		<div class="table">
 			<h3 class="header text-center">OAuth Approval</h3>
+			<!-- class設定無邊界 -->
 			<div class="container-fluid">
 			<!-- ask for authorize text -->
-					<h4 th:text="|Do you authorize '${authorizationRequest.clientId}' to access your protected resources?|">Do you authorize 'App' to access your protected resources?</h4>
+					<h4 class="text-left" th:utext="|是否同意      &lt;mark&gt;'${authorizationRequest.clientId}'&lt;/mark&gt;  取得資訊？|">Do you authorize 'App' to access your protected resources?</h4>
 				<div class="row">
 					<div class="col-md-4">
 					<div>
